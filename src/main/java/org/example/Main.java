@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        UserList1 userList = new UserList1();
+        UserList userList = new UserList();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -29,7 +29,7 @@ public class Main {
                     String name = scanner.nextLine();
                     System.out.print("Enter Email: ");
                     String email = scanner.nextLine();
-                    User1 user = new User1(id, name, email);
+                    User user = new User(id, name, email);
                     userList.addUser(user);
                     break;
 
@@ -47,11 +47,11 @@ public class Main {
 
                     // Debug: Print the list of users
                     System.out.println("All Users:");
-                    for (User1 u : userList.getAllUsers()) {
+                    for (User u : userList.getAllUsers()) {
                         System.out.println("ID: " + u.getId() + ", Name: " + u.getName() + ", Email: " + u.getEmail());
                     }
 
-                    User1 foundUser = userList.getUserById(searchId);
+                    User foundUser = userList.getUserById(searchId);
                     if (foundUser != null) {
                         System.out.println("User found: " + foundUser.getName() + " (" + foundUser.getEmail() + ")");
                     } else {
@@ -62,10 +62,10 @@ public class Main {
                 case 4:
                     // Sort Users by Name
                     userList.sortUsersByName();
-                    List<User1> sortedUsers = userList.getAllUsers();
+                    List<User> sortedUsers = userList.getAllUsers();
 
                     System.out.println("Users sorted by name:");
-                    for (User1 user1 : sortedUsers) {
+                    for (User user1 : sortedUsers) {
                         System.out.println("ID: " + user1.getId() + ", Name: " + user1.getName() + ", Email: " + user1.getEmail());
                     }
                     break;
@@ -73,9 +73,9 @@ public class Main {
 
                 case 5:
                     // Display All Users
-                    List<User1> allUsers = userList.getAllUsers();
+                    List<User> allUsers = userList.getAllUsers();
                     System.out.println("All Users:");
-                    for (User1 u : allUsers) {
+                    for (User u : allUsers) {
                         System.out.println("ID: " + u.getId() + ", Name: " + u.getName() + ", Email: " + u.getEmail());
                     }
                     break;
