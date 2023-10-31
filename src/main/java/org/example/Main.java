@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.List;
 
@@ -22,70 +23,97 @@ public class Main {
             switch (choice) {
                 case 1:
                     // Add User
-                    System.out.print("Enter ID: ");
-                    int id = scanner.nextInt();
-                    scanner.nextLine(); // Consume the newline character
+
+                    int id = inputUserId();
+                    scanner.nextLine();
+
                     System.out.print("Enter Name: ");
                     String name = scanner.nextLine();
+
                     System.out.print("Enter Email: ");
                     String email = scanner.nextLine();
+
                     User user = new User(id, name, email);
                     userList.addUser(user);
                     break;
 
                 case 2:
                     // Remove User
-                    System.out.print("Enter User ID to Remove: ");
-                    int removeId = scanner.nextInt();
-                    userList.removeUser(removeId);
+                    System.out.println("Remove User: ");
+                    int removeId = inputUserId();
+                    scanner.nextLine();
+
+                    if (userList.removeUser(removeId)) {
+                        System.out.printf("User Id %d is Removed %n", removeId);
+                    }
+                    else {
+                        System.out.printf("User Id %d Not Found %n", removeId);
+                    }
                     break;
 
                 case 3:
                     // Search User by ID
-                    System.out.print("Enter User ID to Search: ");
-                    int searchId = scanner.nextInt();
-
-                    // Debug: Print the list of users
-                    System.out.println("All Users:");
-                    for (User u : userList.getAllUsers()) {
-                        System.out.println("ID: " + u.getId() + ", Name: " + u.getName() + ", Email: " + u.getEmail());
-                    }
+                    System.out.println("Search User: ");
+                    int searchId = inputUserId();
+                    scanner.nextLine();
 
                     User foundUser = userList.getUserById(searchId);
                     if (foundUser != null) {
-                        System.out.println("User found: " + foundUser.getName() + " (" + foundUser.getEmail() + ")");
+                       // System.out.println("User Found: " + foundUser.getName() + " (" + foundUser.getEmail() + ")");
+                        System.out.println("Id: " + foundUser.getId() + ", Name: " + foundUser.getName() + ", Email: " + foundUser.getEmail());
                     } else {
-                        System.out.println("User not found.");
+                        System.out.println("User Not Found.");
                     }
                     break;
 
                 case 4:
                     // Sort Users by Name
-                    userList.sortUsersByName();
                     List<User> sortedUsers = userList.getAllUsers();
-
-                    System.out.println("Users sorted by name:");
-                    for (User user1 : sortedUsers) {
-                        System.out.println("ID: " + user1.getId() + ", Name: " + user1.getName() + ", Email: " + user1.getEmail());
+                    if (!sortedUsers.isEmpty()) {
+                        sortedUsers.sort(Comparator.comparing(User::getName));
+                        System.out.println("Users Sorted By Name:");
+                        for (User user1 : sortedUsers) {
+                            System.out.println("Id: " + user1.getId() + ", Name: " + user1.getName() + ", Email: " + user1.getEmail());
+                        }
+                    }
+                    else {
+                        System.out.println("No User Found To Sort By Name");
                     }
                     break;
-
 
                 case 5:
                     // Display All Users
                     List<User> allUsers = userList.getAllUsers();
                     System.out.println("All Users:");
                     for (User u : allUsers) {
-                        System.out.println("ID: " + u.getId() + ", Name: " + u.getName() + ", Email: " + u.getEmail());
+                        System.out.println("Id: " + u.getId() + ", Name: " + u.getName() + ", Email: " + u.getEmail());
                     }
                     break;
 
                 case 6:
                     // Exit
-                    System.out.println("Exiting the program.");
+                    System.out.println("Exiting The Program.");
                     System.exit(0);
                     break;
             }
         }
+    }
+
+    static int inputUserId()
+    {
+        int id;
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print("Enter Id: ");
+            if (scanner.hasNextInt()) {
+                id = scanner.nextInt();
+                scanner.nextLine();
+                break;
+            } else {
+                System.out.println("Invalid Input. Please Enter a Valid Integer For Id.");
+                scanner.nextLine();
+            }
+        }
+        return id;
     }
 }
