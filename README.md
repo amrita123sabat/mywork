@@ -26,7 +26,15 @@ The objective of this project is to demonstrate the ability to develop a simple 
 
 ## Project Description
 
-This console application manages a list of users. It consists of two main classes: `User` and `UserList`.
+This console application manages a list of users.  It consists of two main classes: `User` and `UserList`.
+it provides below functionalities.
+
+1. Add User
+2. Remove User
+3. Search User by ID
+4. Sort Users by Name
+5. Display All Users
+6. Exit
 
 ### Object-Oriented Analysis
 
