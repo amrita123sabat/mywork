@@ -23,7 +23,6 @@ public class UserList {
         }
         return null;
     }
-
      public List<User> getAllUsers() {
         return new ArrayList<>(userList);
     }
